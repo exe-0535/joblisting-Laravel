@@ -19,8 +19,8 @@ class ListingPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function destroy(User $user, Listing $listing): bool
+    public function destroy(User $user, Listing $listing): Response
     {
-        return $user->id === $listing->user_id;
+        return $user->id === $listing->user_id ? Response::allow() : abort(403, 'Unauthorized action');;
     }
 }
