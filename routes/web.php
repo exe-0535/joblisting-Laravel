@@ -49,11 +49,11 @@ Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->midd
 
 // Update Listing
 
-Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
+Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth')->middleware('can:update,listing');
 
 // Delete Listing
 
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
+Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth')->middleware('can:destroy,listing');
 
 // Single Listing
 

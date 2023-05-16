@@ -58,12 +58,6 @@ class ListingController extends Controller
 
     public function update(StoreListingRequest $request, Listing $listing) {
 
-        // Make sure logged in user is owner
-
-        if($listing->user_id != auth()->id()) {
-            abort(403, 'Unauthorized Action');
-        }
-
         $formFields = $request->validated();
 
         if($request->hasFile('logo')) {
@@ -81,10 +75,6 @@ class ListingController extends Controller
     // Delete a listing
 
     public function destroy(Listing $listing) {
-
-        if($listing->user_id != auth()->id()) {
-            abort(403, 'Unauthorized Action');
-        }
 
         $listing->delete();
         return redirect('/')->with('message', 'Listing deleted successfully!');
