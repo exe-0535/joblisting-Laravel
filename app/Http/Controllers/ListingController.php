@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreListingRequest;
 use App\Models\Listing;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -29,17 +31,9 @@ class ListingController extends Controller
 
     // Store Listing Data
 
-    public function store(Request $request) {
+    public function store(StoreListingRequest $request) {
 
-        $formFields = $request->validate([
-            'title' => 'required',
-            'company' => ['required', Rule::unique('listings', 'company')],
-            'location' => 'required',
-            'website' => 'required',
-            'email' => ['required', 'email'],
-            'tags' => 'required',
-            'description' => 'required'
-        ]);
+        $formFields = $request->validated();
 
         $formFields['user_id'] = auth()->id();
 
@@ -62,7 +56,7 @@ class ListingController extends Controller
 
     // Update listing
 
-    public function update(Request $request, Listing $listing) {
+    public function update(StoreListingRequest $request, Listing $listing) {
 
         // Make sure logged in user is owner
 
@@ -70,15 +64,7 @@ class ListingController extends Controller
             abort(403, 'Unauthorized Action');
         }
 
-        $formFields = $request->validate([
-            'title' => 'required',
-            'company' => ['required'],
-            'location' => 'required',
-            'website' => 'required',
-            'email' => ['required', 'email'],
-            'tags' => 'required',
-            'description' => 'required'
-        ]);
+        $formFields = $request->validated();
 
         if($request->hasFile('logo')) {
 
