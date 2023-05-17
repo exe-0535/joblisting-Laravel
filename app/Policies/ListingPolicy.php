@@ -9,6 +9,14 @@ use Illuminate\Auth\Access\Response;
 class ListingPolicy
 {
     /**
+     * Determine whether the user can edit the listing.
+     */
+    public function edit(User $user, Listing $listing): Response
+    {
+        return $user->id === $listing->user_id ? Response::allow() : abort(403, 'Unauthorized action');;
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, Listing $listing): Response

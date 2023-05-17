@@ -51,6 +51,7 @@ class ListingController extends Controller
 
     // Show Edit Form
     public function edit(Listing $listing) {
+        $this->authorize('edit', $listing);
         return view('listings.edit', ['listing' => $listing]);
     }
 
@@ -58,6 +59,7 @@ class ListingController extends Controller
 
     public function update(StoreListingRequest $request, Listing $listing) {
 
+        $this->authorize('update', $listing);
         $formFields = $request->validated();
 
         if($request->hasFile('logo')) {
@@ -75,6 +77,8 @@ class ListingController extends Controller
     // Delete a listing
 
     public function destroy(Listing $listing) {
+
+        $this->authorize('destroy', $listing);
 
         $listing->delete();
         return redirect('/')->with('message', 'Listing deleted successfully!');
