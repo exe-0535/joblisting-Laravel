@@ -12,8 +12,8 @@ class UserController extends Controller
 {
     // Show Register / Create Form
 
-    public function create() {
-        return view('users.register');
+    public function create(string $role) {
+        return view('users.register', ['role' => $role]);
     }
 
     // Show role choosing form before registering
@@ -23,7 +23,7 @@ class UserController extends Controller
     }
 
     // Create New User
-    public function store(CreateUserRequest $request) {
+    public function store(CreateUserRequest $request, string $role) {
         
         $formFields = $request->validated();
 
@@ -34,6 +34,10 @@ class UserController extends Controller
         // Create User
         
         $user = User::create($formFields);
+
+        // Assign a role to a user
+
+        $user->assignRole($role);
 
         // Login
 

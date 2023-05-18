@@ -34,11 +34,19 @@
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
                 @auth
+                    @hasrole('seeker')
                     <li>
                         <span class="font-bold uppercase">
-                            Hi, {{auth()->user()->name}}
+                            Hi, {{auth()->user()->name}}, you're a seeker!
                         </span>
                     </li>
+                    @else
+                    <li>
+                        <span class="font-bold uppercase">
+                            Hi, {{auth()->user()->name}}, you're a employer!
+                        </span>
+                    </li>
+                    @endhasrole
                     <li>
                         <a href="/listings/manage" class="hover:text-laravel"
                             ><i class="fa-solid fa-gear"></i>

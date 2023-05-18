@@ -5,13 +5,16 @@
                 Register as:
             </h2>
         </header>
-
-        <form action="/register/role" method="POST">
-            @csrf
-            @method('PUT')
-            <button type="submit" class="p-5 mt-6 font-semibold text-2xl w-full text-white bg-red-500 hover:bg-red-600 rounded-lg">EMPLOYER</button>
+            <a href="/register/employer">
+                <button class="p-5 mt-6 font-semibold text-2xl w-full text-white bg-red-500 hover:bg-red-600 rounded-lg">
+                        EMPLOYER
+                </button>
+            </a>
             <br>
-            <button type="submit" class="p-5 my-5 font-semibold text-2xl w-full text-white bg-red-500 hover:bg-red-600 rounded-lg">JOB SEEKER</button>
-        </form>
+            <a href="/register/seeker">
+                <button class="p-5 my-5 font-semibold text-2xl w-full text-white bg-red-500 hover:bg-red-600 rounded-lg">
+                        JOB SEEKER
+                </button>
+            </a>
     </x-card>
 </x-layout>
