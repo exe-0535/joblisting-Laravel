@@ -34,13 +34,13 @@ class PermissionsSeeder extends Seeder
         $seeker = Role::create(['name' => 'seeker']);
         $seeker->givePermissionTo('create applications');
 
-        // Demo user
+        // // Demo user
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'Example User',
-            'email' => 'test@example.com',
-        ]);
-        $user->assignRole($employer);
+        // $user = \App\Models\User::factory()->create([
+        //     'name' => 'Example User',
+        //     'email' => 'test@example.com',
+        // ]);
+        // $user->assignRole($employer);
 
     }
 }
