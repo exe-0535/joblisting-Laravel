@@ -16,6 +16,12 @@ class UserController extends Controller
         return view('users.register');
     }
 
+    // Show role choosing form before registering
+
+    public function roleChoosing() {
+        return view('users.register_role');
+    }
+
     // Create New User
     public function store(CreateUserRequest $request) {
         

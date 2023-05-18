@@ -63,6 +63,10 @@ Route::get('/listings/{listing}', [ListingController::class, 'show']);
 
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
+// Show role choosing form before registering
+
+Route::get('/register/role', [UserController::class, 'roleChoosing'])->middleware('guest');;
+
 // Create New User
 
 Route::post('/users', [UserController::class, 'store']);
