@@ -37,4 +37,12 @@ class Listing extends Model
         return $this->belongsTo(User::class, 'user_id');
 
     }
+
+    // Relationship To Application
+
+    public function application() {
+
+        return $this->hasMany(Application::class, 'listing_id');
+
+    }
 }
