@@ -10,9 +10,9 @@
         <form action="/users/authenticate" method="POST">
             @csrf
 
-            <div class="mb-6">
-                <label for="email" class="inline-block text-lg mb-2"
-                    >Email</label
+            <div class="mb-3">
+                <label for="email" class="inline-block text-sm mb-2"
+                    >E-mail Address</label
                 >
                 <input
                     type="email"
@@ -25,10 +25,10 @@
                 @enderror
             </div>
 
-            <div class="mb-6">
+            <div class="mb-3">
                 <label
                     for="password"
-                    class="inline-block text-lg mb-2"
+                    class="inline-block text-sm mb-2"
                 >
                     Password
                 </label>
@@ -44,7 +44,7 @@
 
 
 
-            <div class="mb-6">
+            <div class="my-5">
                 <button
                     type="submit"
                     class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
@@ -53,7 +53,7 @@
                 </button>
             </div>
 
-            <div class="mt-8">
+            <div class="mt-3">
                 <p>
                     Don't have an account?
                     <a href="/register" class="text-laravel"

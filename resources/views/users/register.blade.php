@@ -73,7 +73,7 @@
 
             <div class="mb-3">
                 <label for="email" class="inline-block text-sm mb-2"
-                    >E-mail address</label
+                    >E-mail Address</label
                 >
                 <input
                     type="email"
@@ -91,7 +91,7 @@
             @if ($role === 'employer')
                 <div class="mb-3">
                     <label for="phone_number" class="inline-block text-sm mb-2">
-                        Phone number
+                        Phone Number
                     </label>
                     <input
                         type="tel"
