@@ -52,13 +52,26 @@
                             <i class="fa-solid fa-bell"></i>
                         </a>
                     </li>
-                    
-                    <li>
-                        <a href="/listings/manage" class="hover:text-laravel">
-                            <i class="fa-solid fa-gear"></i> Manage listings
-                        </a>
-                    </li>
 
+                    @hasrole('employer')
+                    
+                        <li>
+                            <a href="/listings/manage" class="hover:text-laravel">
+                                <i class="fa-solid fa-gear"></i> Manage listings
+                            </a>
+                        </li>
+
+                    @endhasrole
+
+                    @hasrole('seeker')
+
+                        <li>
+                            <a href="/listings/manage" class="hover:text-laravel">
+                                <i class="fa-solid fa-gear"></i> My job applications
+                            </a>
+                        </li>
+
+                    @endhasrole
                     <li>
                         <form action="/logout" method="POST" class="inline">
                             @csrf

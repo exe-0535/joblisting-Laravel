@@ -65,6 +65,53 @@
                         </x-card>
                     @endif
                 @endcan
+
+                @can('create applications')
+                <x-card class="mt-4 p-2 flex space-x-6 items-center justify-center">
+                    <div class="w-1/2">
+                        <h3 class="text-2xl font-bold mb-4 text-center">
+                            Apply for this job
+                        </h3>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="my-3 w-full">
+                                <label for="note" class="inline-block text-base mb-2 font-bold">Introduce yourself</label>
+
+                                <textarea
+                                    type="text"
+                                    class="border border-gray-200 resize-none rounded-md w-full pb-5 max-h-15"
+                                    name="note"
+                                    value="{{old('note')}}"
+                                    placeholder="Introduce yourself, paste your github or linkedin links, etc."></textarea>
+
+                                @error('note')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div class="my-3 w-full">
+                                <label for="note" class="inline-block text-base mb-2 font-bold">CV Upload</label>
+
+                                <input
+                                    type="file"
+                                    class="w-full"
+                                    name="cv"/>
+
+                                @error('cv')
+                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                                @enderror
+                            </div>
+
+                            <div class="my-5">
+                                <button type="submit" class="bg-laravel text-white rounded py-3 px-4 hover:bg-black w-full">
+                                    Apply
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </x-card>
+
+                @endcan
             </div>
 
 </x-layout>
