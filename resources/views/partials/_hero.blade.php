@@ -11,14 +11,16 @@
             Lara<span class="text-black">Gigs</span>
         </h1>
         <p class="text-2xl text-gray-200 font-bold my-4">
-            Find or post Laravel jobs & projects
+            Best IT Listings Service
         </p>
+        @hasanyrole('employer|seeker')
+
+        @else
         <div>
-            <a
-                href="register.html"
-                class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black"
-                >Sign Up to List a Gig</a
-            >
+            <a href="/register/role" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">
+                Start <span class="text-black">Now</span>
+            </a>
         </div>
+        @endhasanyrole
     </div>
 </section>

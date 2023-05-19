@@ -50,18 +50,21 @@
                     </div>
                 </x-card>
 
-                {{-- <x-card class="mt-4 p-2 flex space-x-6">
-                    <a href="/listings/{{$listing->id}}/edit">
-                        <i class="fa-solid fa-pencil"></i> Edit
-                    </a>
+                @can('edit gigs')
+                    @if ($listing->user_id == auth()->user()->id)
+                        <x-card class="mt-4 p-2 flex space-x-6 items-center justify-center">
+                            <a href="/listings/{{$listing->id}}/edit">
+                                <i class="fa-solid fa-pencil"></i> Edit
+                            </a>
 
-                    <form action="/listings/{{$listing->id}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-
-                        <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
-                    </form>
-                </x-card> --}}
+                            <form action="/listings/{{$listing->id}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </form>
+                        </x-card>
+                    @endif
+                @endcan
             </div>
 
 </x-layout>

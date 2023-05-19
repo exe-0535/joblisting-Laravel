@@ -25,7 +25,7 @@
                 },
             };
         </script>
-        <title>LaraGigs | Find Laravel Jobs & Projects</title>
+        <title>LaraGigs | Best IT Listings Service</title>
     </head>
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-4">
@@ -48,11 +48,17 @@
                     </li>
                     @endhasrole --}}
                     <li>
-                        <a href="/listings/manage" class="hover:text-laravel"
-                            ><i class="fa-solid fa-gear"></i>
-                            Manage listings</a
-                        >
+                        <a href="/" class="hover:text-laravel">
+                            <i class="fa-solid fa-bell"></i>
+                        </a>
                     </li>
+                    
+                    <li>
+                        <a href="/listings/manage" class="hover:text-laravel">
+                            <i class="fa-solid fa-gear"></i> Manage listings
+                        </a>
+                    </li>
+
                     <li>
                         <form action="/logout" method="POST" class="inline">
                             @csrf
