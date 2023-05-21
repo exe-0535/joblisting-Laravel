@@ -49,4 +49,10 @@ class User extends Authenticatable
     public function listings() {
         return $this->hasMany(Listing::class, 'user_id');
     }
+
+    // Relationship To Applications
+
+    public function applications() {
+        return $this->hasMany(Application::class, 'user_id');
+    }
 }

@@ -22,7 +22,7 @@
                             </td>
 
                             <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
-                                <a href="/" class="text-blue-400 rounded-xl">
+                                <a href="/applications/{{$listing->id}}/manage" class="text-blue-400 rounded-xl">
                                     <i class="fa-solid fa-question-circle"></i> Applications
                                 </a>
                             </td>

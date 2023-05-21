@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,10 @@ Route::post('/listings', [ListingController::class, 'store'])->middleware('auth'
 
 Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
 
+// Single Listing
+
+Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
 // Update Listing
 
 Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
@@ -55,9 +60,19 @@ Route::put('/listings/{listing}', [ListingController::class, 'update'])->middlew
 
 Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
-// Single Listing
 
-Route::get('/listings/{listing}', [ListingController::class, 'show']);
+
+
+// Show Applications for a Listing
+
+Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage']);
+
+// Show applications of a User
+
+Route::get('/applications/{user}/show');
+
+
+
 
 // Show role choosing form before registering
 

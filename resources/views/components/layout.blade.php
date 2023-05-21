@@ -66,7 +66,7 @@
                     @hasrole('seeker')
 
                         <li>
-                            <a href="/listings/manage" class="hover:text-laravel">
+                            <a href="/applications/show" class="hover:text-laravel">
                                 <i class="fa-solid fa-gear"></i> My job applications
                             </a>
                         </li>
