@@ -69,7 +69,7 @@ Route::get('/applications/{listing}/manage', [ApplicationController::class, 'man
 
 // Show applications of a User
 
-Route::get('/applications/{user}/show');
+Route::get('/applications/show', [ApplicationController::class, 'show']);
 
 
 

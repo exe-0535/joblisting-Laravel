@@ -12,4 +12,10 @@ class ApplicationController extends Controller
         return view('applications.manage', ['applications' => $listing->applications()->where('listing_id', '=', $listing->id)->get(), 'listing' => $listing]);
 
     }
+
+    public function show() {
+        
+        return view('applications.show', ['applications' => auth()->user()->applications()->get()]); 
+
+    }
 }
