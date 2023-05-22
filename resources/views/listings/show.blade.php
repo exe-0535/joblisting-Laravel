@@ -72,7 +72,7 @@
                         <h3 class="text-2xl font-bold mb-4 text-center">
                             Apply for this job
                         </h3>
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        <form action="{{url('/applications/' . $listing->id)}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="my-3 w-full">
                                 <label for="note" class="inline-block text-base mb-2 font-bold">Introduce yourself</label>
@@ -95,8 +95,9 @@
                                 <input
                                     type="file"
                                     class="w-full"
-                                    name="cv"/>
-
+                                    name="cv"
+                                    value="{{old('cv')}}"
+                                />
                                 @error('cv')
                                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                                 @enderror

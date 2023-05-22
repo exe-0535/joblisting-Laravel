@@ -63,13 +63,19 @@ Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->mid
 
 
 
-// Show Applications for a Listing
-
-Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage']);
-
 // Show applications of a User
 
 Route::get('/applications/show', [ApplicationController::class, 'show']);
+
+
+// Store an Application
+
+Route::post('/applications/{listing}', [ApplicationController::class, 'store']);
+
+
+// Show Applications for a Listing
+
+Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage']);
 
 
 
