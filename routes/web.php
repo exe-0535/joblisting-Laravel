@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\CVDownloadController;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,11 @@ Route::put('/listings/{listing}', [ListingController::class, 'update'])->middlew
 
 Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
 
+
+
+// Download CV
+
+Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download');
 
 
 

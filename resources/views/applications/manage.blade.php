@@ -22,6 +22,9 @@
                                     <div class="mb-5 break-words">
                                         {{$application->note}}
                                     </div>
+                                    <div class="mb-5 break-words">
+                                        <i class="fa-sharp fa-solid fa-download text-laravel"></i> <a class="text-lar
+                                    </div>avel font-bold hover:text-black" href="{{route('download', ['cv' => substr($application->cv, 4)])}}" target="_blank">Download CV</a>
                                 </div>
                             </tr>
                         @endforeach
