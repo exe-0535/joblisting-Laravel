@@ -56,7 +56,7 @@
                         </button> --}}
                         <a href="#" class="relative inline-flex items-center text-base font-medium text-center text-black rounded-lg focus:ring-4 focus:outline-none">
                             <i class="hover:text-laravel fa-solid fa-bell"></i>
-                            <div class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-laravel rounded-full -top-2 -right-2">0</div>
+                            <div class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-laravel rounded-full -top-2 -right-2">{{auth()->user()->notifications->count()}}</div>
                         </a>
                     </li>
                     @hasrole('employer')

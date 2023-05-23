@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Models\Application;
 use App\Models\Listing;
+use App\Models\User;
+use App\Notifications\NewApplicationNotification;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -36,6 +38,12 @@ class ApplicationController extends Controller
         }
 
         Application::create($formFields);
+
+        $listing = Listing::findOrFail($listing);
+
+        $employer = User::findOrFail($listing->user_id);
+        
+        $employer->notify(new NewApplicationNotification($listing->id, auth()->id()));
         
         
         return redirect('/')->with('message', 'Application created successfully!');

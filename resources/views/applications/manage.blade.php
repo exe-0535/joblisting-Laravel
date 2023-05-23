@@ -44,12 +44,6 @@
                                         </div>
                                     </div>
                                 </tr>
-                            @else
-                                <tr class="border-gray-300">
-                                    <td class="px-4 py-8 border-t border-b border-gray-300 text-lg">
-                                        <p class="text-center">No applications found (yet!)</p>
-                                    </td>
-                                </tr>
                             @endif
                         @endforeach
                     @else
