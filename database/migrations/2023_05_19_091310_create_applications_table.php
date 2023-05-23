@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('listing_id')->constrained()->onDelete('cascade');
             $table->longText('note');
             $table->string('cv');
-            $table->enum('status', ['accepted', 'declined'])->nullable();
+            $table->enum('status', ['accepted', 'declined', 'pending'])->default('pending');
             $table->timestamps();
         });
     }

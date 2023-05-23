@@ -26,12 +26,20 @@
                                         <i class="fa-sharp fa-solid fa-download text-laravel"></i> <a class="text-laravel font-bold hover:text-black" href="{{route('download', ['cv' => substr($application->cv, 4)])}}" download="cv" target="_blank">Download CV</a>
                                     </div>
                                     <div class="mb-5 break-words">
-                                        <button onclick="{{$application->status = 'accepted'}}" class="py-2 px-10 mt-3 mr-10 font-semibold text-base text-white bg-green-500 hover:bg-green-800 rounded-full border-solid border-2 border-black">
-                                            ACCEPT
-                                        </button>
-                                        <button onclick="{{$application->status = 'declined'}}" class="py-2 px-10 mt-3 font-semibold text-base text-white bg-red-500 hover:bg-red-800 rounded-full border-solid border-2 border-black">
-                                            DECLINE
-                                        </button>
+                                        <form action="/applications/{{$application->listing_id}}/{{$application->id}}/accepted" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button class="py-2 px-10 mt-3 mr-10 font-semibold text-base text-white bg-green-500 hover:bg-green-800 rounded-full border-solid border-2 border-black">
+                                                ACCEPT
+                                            </button>
+                                        </form>
+                                        <form action="/applications/{{$application->listing_id}}/{{$application->id}}/declined" method="POST" class="float-left">
+                                            @csrf
+                                            @method('PUT')
+                                            <button class="py-2 px-10 mt-3 font-semibold text-base text-white bg-red-500 hover:bg-red-800 rounded-full border-solid border-2 border-black">
+                                                DECLINE
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </tr>

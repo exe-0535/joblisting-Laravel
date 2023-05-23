@@ -84,6 +84,11 @@ Route::post('/applications/{listing}', [ApplicationController::class, 'store']);
 Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage']);
 
 
+// Update Application Status
+
+Route::put('/applications/{listing}/{id}/{status}', [ApplicationController::class, 'update']);
+
+
 
 
 // Show role choosing form before registering

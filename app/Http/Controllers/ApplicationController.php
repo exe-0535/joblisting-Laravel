@@ -40,4 +40,12 @@ class ApplicationController extends Controller
         
         return redirect('/')->with('message', 'Application created successfully!');
     }
+
+    public function update($listing, $id, $status) {
+
+        Application::where('id', $id)->update(['status' => $status]);
+
+        return redirect('/applications/' . $listing . '/manage')->with('message', 'Application ' . $status . ' successfully!');
+
+    }
 }

@@ -25,6 +25,9 @@
                                         <br>
                                         {{$application->note}}
                                     </div>
+                                    <div class="mb-5 break-words">
+                                        Status: <p class="font-bold">{{strtoupper($application->status)}}</p>
+                                    </div>
                                     
                                 </div>
                             </tr>
