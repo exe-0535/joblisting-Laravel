@@ -11,12 +11,16 @@ class ApplicationStatusUpdateNotification extends Notification
 {
     use Queueable;
 
+    private $newstatus;
+    private $application_id;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($newstatus, $application_id)
     {
-        //
+        $this->newstatus = $newstatus;
+        $this->application_id = $application_id;
     }
 
     /**
@@ -26,7 +30,7 @@ class ApplicationStatusUpdateNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -45,10 +49,11 @@ class ApplicationStatusUpdateNotification extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
+    public function toDatabase(object $notifiable): array
     {
         return [
-            //
+            'application_id' => $this->application_id,
+            'newstatus' => $this->newstatus
         ];
     }
 }

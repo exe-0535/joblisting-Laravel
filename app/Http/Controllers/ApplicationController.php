@@ -6,6 +6,7 @@ use App\Http\Requests\StoreApplicationRequest;
 use App\Models\Application;
 use App\Models\Listing;
 use App\Models\User;
+use App\Notifications\ApplicationStatusUpdateNotification;
 use App\Notifications\NewApplicationNotification;
 use Illuminate\Http\Request;
 
@@ -42,7 +43,7 @@ class ApplicationController extends Controller
         $listing = Listing::findOrFail($listing);
 
         $employer = User::findOrFail($listing->user_id);
-        
+
         $employer->notify(new NewApplicationNotification($listing->id, auth()->id()));
         
         
@@ -52,6 +53,11 @@ class ApplicationController extends Controller
     public function update($listing, $id, $status) {
 
         Application::where('id', $id)->update(['status' => $status]);
+
+        $application = Application::findOrFail($id);
+        $seeker = User::findOrFail($application->user_id);
+
+        $seeker->notify(new ApplicationStatusUpdateNotification($status, $id));
 
         return redirect('/applications/' . $listing . '/manage')->with('message', 'Application ' . $status . ' successfully!');
 
