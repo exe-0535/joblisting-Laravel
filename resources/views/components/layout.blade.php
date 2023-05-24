@@ -12,6 +12,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
@@ -34,31 +35,49 @@
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
                 @auth
-                    {{-- @hasrole('seeker')
                     <li>
-                        <span class="font-bold uppercase">
-                            Hi, {{auth()->user()->name}}, you're a seeker!
-                        </span>
-                    </li>
-                    @else
-                    <li>
-                        <span class="font-bold uppercase">
-                            Hi, {{auth()->user()->name}}, you're a employer!
-                        </span>
-                    </li>
-                    @endhasrole --}}
-                    <li>
+                            <button id="dropdownNotificationButton" data-dropdown-toggle="dropdownNotification" class="relative inline-flex items-center text-base font-medium text-center text-black rounded-lg focus:outline-none" type="button">
+                                <i class="hover:text-laravel fa-solid fa-bell"></i>
+                                <div class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-laravel rounded-full -top-2 -right-2">{{auth()->user()->notifications->count()}}</div>
+                            </button>
                         
-                        {{-- <button type="button" class="relative inline-flex items-center p-3 text-sm font-medium text-center text-white bg-transparent rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                            <span class="sr-only">Notifications</span>
-                            <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">20</div>
-                        </button> --}}
-                        <a href="#" class="relative inline-flex items-center text-base font-medium text-center text-black rounded-lg focus:ring-4 focus:outline-none">
-                            <i class="hover:text-laravel fa-solid fa-bell"></i>
-                            <div class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-laravel rounded-full -top-2 -right-2">{{auth()->user()->notifications->count()}}</div>
-                        </a>
+                            <!-- Dropdown menu -->
+                            <div id="dropdownNotification" class="z-20 hidden w-full max-w-xs bg-gray-50 divide-y divide-gray-100 rounded-lg shadow border-solid border border-gray-500" aria-labelledby="dropdownNotificationButton">
+                                <div class="block px-4 py-2 font-medium text-center rounded-t-lg bg-gray-50">
+                                    Notifications
+                                </div>
+                                @foreach(auth()->user()->notifications as $notification)
+                                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                                        @hasrole('employer')
+                                        <div class="my-3 px-4">
+                                            <div class="text-lg mb-1 w-full">
+                                                {{auth()->user()->listings->where('id', '=', $notification->data['listing_id'])->first()->title}}
+                                            </div>
+                                            <div class="font-bold text-base">
+                                                @php
+                                                    $listing = auth()->user()->listings->where('id', '=', $notification->data['listing_id'])->first();
+                                                    $application = $listing->applications()->where('user_id', '=', $notification->data['user_id'])->first();
+                                                    $user = $application->user;
+                                                    $fullName = $user->name . ' ' . $user->surname;
+                                                @endphp
+
+                                                {{ $fullName }}
+                                            </div>
+                                        </div>
+                                        @endhasrole
+                                    </div>
+                                @endforeach
+                                {{-- <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
+                                    <div class="inline-flex items-center ">
+                                    <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                                        View all
+                                    </div>
+                                </a> --}}
+                            </div>
+                            
                     </li>
+
+
                     @hasrole('employer')
                     
                         <li>
@@ -120,5 +139,6 @@
 
     <!-- It doesn't matter where I put flash message since it has postion fixed on it -->
     <x-flash-message/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
 </html>
