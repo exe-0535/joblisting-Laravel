@@ -63,6 +63,18 @@ Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->mid
 
 
 
+// Mark notification as read
+
+Route::get('/markAsRead/{id}', function($id) {
+
+    auth()->user()->notifications->where('id', $id)->markAsRead();
+    
+    return redirect()->back();
+
+});
+
+
+
 // Download CV
 
 Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download');

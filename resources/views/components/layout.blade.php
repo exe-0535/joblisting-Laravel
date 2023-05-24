@@ -38,35 +38,78 @@
                     <li>
                             <button id="dropdownNotificationButton" data-dropdown-toggle="dropdownNotification" class="relative inline-flex items-center text-base font-medium text-center text-black rounded-lg focus:outline-none" type="button">
                                 <i class="hover:text-laravel fa-solid fa-bell"></i>
-                                <div class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-laravel rounded-full -top-2 -right-2">{{auth()->user()->notifications->count()}}</div>
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <div class="absolute inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-white bg-laravel rounded-full -top-2 -right-2">{{auth()->user()->unreadNotifications->count()}}</div>
+                                @endif
                             </button>
                         
                             <!-- Dropdown menu -->
-                            <div id="dropdownNotification" class="z-20 hidden w-full max-w-xs bg-gray-50 divide-y divide-gray-100 rounded-lg shadow border-solid border border-gray-500" aria-labelledby="dropdownNotificationButton">
-                                <div class="block px-4 py-2 font-medium text-center rounded-t-lg bg-gray-50">
-                                    Notifications
-                                </div>
-                                @foreach(auth()->user()->notifications as $notification)
-                                    <div class="divide-y divide-gray-100 dark:divide-gray-700">
-                                        @hasrole('employer')
-                                        <div class="my-3 px-4">
-                                            <div class="text-lg mb-1 w-full">
-                                                {{auth()->user()->listings->where('id', '=', $notification->data['listing_id'])->first()->title}}
-                                            </div>
-                                            <div class="font-bold text-base">
-                                                @php
-                                                    $listing = auth()->user()->listings->where('id', '=', $notification->data['listing_id'])->first();
-                                                    $application = $listing->applications()->where('user_id', '=', $notification->data['user_id'])->first();
-                                                    $user = $application->user;
-                                                    $fullName = $user->name . ' ' . $user->surname;
-                                                @endphp
-
-                                                {{ $fullName }}
-                                            </div>
-                                        </div>
-                                        @endhasrole
+                            <div id="dropdownNotification" class="z-20 hidden w-full max-w-xs bg-gray-50 rounded-lg shadow border-solid border border-gray-500" aria-labelledby="dropdownNotificationButton">
+                                @if(auth()->user()->unreadNotifications->count() > 0)
+                                    <div class="block px-4 py-2 font-medium text-center rounded-t-lg bg-gray-50">
+                                        Notifications
                                     </div>
-                                @endforeach
+                                        @foreach(auth()->user()->unreadNotifications as $notification)
+                                            <div>
+                                                @hasrole('employer')
+                                                    <a href="/listings/manage">
+                                                        <div class="my-3 px-4">
+                                                            <div class="text-lg w-full">
+                                                                {{auth()->user()->listings->where('id', '=', $notification->data['listing_id'])->first()->title}}
+                                                            </div>
+                                                            <div class="font-bold text-base">
+                                                                @php
+                                                                    $listing = auth()->user()->listings->where('id', '=', $notification->data['listing_id'])->first();
+                                                                    $application = $listing->applications()->where('user_id', '=', $notification->data['user_id'])->first();
+                                                                    $user = $application->user;
+                                                                    $fullName = $user->name . ' ' . $user->surname;
+                                                                @endphp
+
+                                                                {{ $fullName }}
+                                                            </div>
+                                                            <div class="text-xs text-blue-600">
+                                                                <a href="/markAsRead/{{$notification->id}}">
+                                                                    Mark as read
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                @endhasrole
+                                                @hasrole('seeker')
+                                                    <a href="/applications/show">
+                                                        <div class="my-3 px-4">
+                                                            <div class="text-lg w-full">
+                                                                @php
+                                                                    $application = auth()->user()->applications->where('id', '=', $notification->data['application_id'])->first();
+                                                                    $listing = $application->listing()->first();
+                                                                    $status = strtoupper($notification->data['newstatus']);
+
+                                                                @endphp
+                                                                {{$listing->title}}
+                                                            </div>
+                                                            <div class="font-bold text-base">
+                                                                New status: 
+                                                                @if ($status == 'ACCEPTED')
+                                                                    <span class="text-green-600">{{ $status }}</span>
+                                                                @else
+                                                                    <span class="text-red-600">{{ $status }}</span>
+                                                                @endif
+                                                            </div>
+                                                            <div class="text-xs text-blue-600">
+                                                                <a href="/markAsRead/{{$notification->id}}">
+                                                                    Mark as read
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                @endhasrole
+                                            </div>
+                                        @endforeach
+                                @else
+                                    <div class="px-4 py-2 text-lg text-center bg-gray-50">
+                                        No notifications
+                                    </div>
+                                @endif
                                 {{-- <a href="#" class="block py-2 text-sm font-medium text-center text-gray-900 rounded-b-lg bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white">
                                     <div class="inline-flex items-center ">
                                     <svg class="w-4 h-4 mr-2 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
