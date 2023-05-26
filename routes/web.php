@@ -33,6 +33,9 @@ use App\Http\Controllers\ListingController;
 // All Listings / Home Page
 Route::get('/', [ListingController::class, 'index']);
 
+// Show Login Form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
 // User authorization routes
 Route::middleware(['auth'])->group(function() {
 
@@ -50,6 +53,9 @@ Route::middleware(['auth'])->group(function() {
             // Store Listing
             Route::post('', 'store');
 
+            // Single Listing
+            Route::get('/{listing}', 'show');
+            
             // Show Edit Form
             Route::get('/{listing}/edit', 'edit');
 
@@ -60,8 +66,6 @@ Route::middleware(['auth'])->group(function() {
             Route::delete('/{listing}', 'destroy');
         });
 
-        // Single Listing
-        Route::get('/{listing}', 'show');
     });
 
     // Mark notification as read
@@ -98,7 +102,7 @@ Route::middleware(['auth'])->group(function() {
 
 // User Controller routes
 Route::controller(UserController::class)->group(function() {
-    
+
     // Show role choosing form before registering
     Route::get('/register/role', 'roleChoosing')->middleware('guest');;
 
@@ -110,8 +114,5 @@ Route::controller(UserController::class)->group(function() {
 
     // Create New User
     Route::post('/users/{role}', 'store');
-
-    // Show Login Form
-    Route::get('/login', 'login')->name('login')->middleware('guest');
 });
 
