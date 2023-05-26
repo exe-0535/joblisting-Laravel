@@ -29,12 +29,18 @@ use App\Http\Controllers\ListingController;
 // destroy - Delete listing
 
 
-// Listings group
 
-Route::controller(ListingController::class)->group(function() {
-    Route::prefix('listings')->group(function() {
-        Route::middleware(['auth'])->group(function() {
-            
+// All Listings / Home Page
+Route::get('/', [ListingController::class, 'index']);
+
+// User authorization routes
+Route::middleware(['auth'])->group(function() {
+
+    // Listings group
+    Route::controller(ListingController::class)->group(function() {
+
+        Route::prefix('listings')->group(function() {
+
             // Show create form 
             Route::get('/create', 'create');
 
@@ -58,70 +64,54 @@ Route::controller(ListingController::class)->group(function() {
         Route::get('/{listing}', 'show');
     });
 
-    // All Listings
-    Route::get('/', 'index');
+    // Mark notification as read
+    Route::get('/markAsRead/{id}', function($id) {
+
+        auth()->user()->notifications->where('id', $id)->markAsRead();
+        
+        return redirect()->back();
+
+    });
+
+    // Download CV
+    Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download');
+
+    // Applications group
+    Route::controller(ApplicationController::class)->group(function() {
+
+        // Show applications of a User
+        Route::get('/applications/show', 'show');
+
+        // Store an Application
+        Route::post('/applications/{listing}', 'store');
+
+        // Show Applications for a Listing
+        Route::get('/applications/{listing}/manage', 'manage');
+
+        // Update Application Status
+        Route::put('/applications/{listing}/{id}/{status}', 'update');
+    });
+
+    // Log User Out
+    Route::post('/logout', [UserController::class, 'logout']);
 });
 
-// Mark notification as read
-
-Route::get('/markAsRead/{id}', function($id) {
-
-    auth()->user()->notifications->where('id', $id)->markAsRead();
+// User Controller routes
+Route::controller(UserController::class)->group(function() {
     
-    return redirect()->back();
+    // Show role choosing form before registering
+    Route::get('/register/role', 'roleChoosing')->middleware('guest');;
 
-})->middleware('auth');
+    // Show Register/Create Form
+    Route::get('/register/{role}', 'create')->middleware('guest');
 
+    // Log In User
+    Route::post('/users/authenticate', 'authenticate');
 
+    // Create New User
+    Route::post('/users/{role}', 'store');
 
-// Download CV
+    // Show Login Form
+    Route::get('/login', 'login')->name('login')->middleware('guest');
+});
 
-Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download')->middleware('auth');;
-
-
-
-// Show applications of a User
-
-Route::get('/applications/show', [ApplicationController::class, 'show'])->middleware('auth');;
-
-
-// Store an Application
-
-Route::post('/applications/{listing}', [ApplicationController::class, 'store'])->middleware('auth');;
-
-
-// Show Applications for a Listing
-
-Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage'])->middleware('auth');;
-
-
-// Update Application Status
-
-Route::put('/applications/{listing}/{id}/{status}', [ApplicationController::class, 'update'])->middleware('auth');;
-
-
-
-
-// Show role choosing form before registering
-
-Route::get('/register/role', [UserController::class, 'roleChoosing'])->middleware('guest');;
-
-// Show Register/Create Form
-
-Route::get('/register/{role}', [UserController::class, 'create'])->middleware('guest');
-
-// Log In User
-
-Route::post('/users/authenticate', [UserController::class, 'authenticate']);
-
-// Create New User
-
-Route::post('/users/{role}', [UserController::class, 'store']);
-
-// Log User Out
-
-Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
-
-// Show Login Form
-
-Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
