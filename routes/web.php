@@ -29,39 +29,38 @@ use App\Http\Controllers\ListingController;
 // destroy - Delete listing
 
 
-// All Listings
+// Listings group
 
-Route::get('/', [ListingController::class, 'index']);
+Route::controller(ListingController::class)->group(function() {
+    Route::prefix('listings')->group(function() {
+        Route::middleware(['auth'])->group(function() {
+            
+            // Show create form 
+            Route::get('/create', 'create');
 
-// Show create Form
+            // Manage Listings
+            Route::get('/manage', 'manage');
 
-Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
+            // Store Listing
+            Route::post('', 'store');
 
-// Manage Listings
+            // Show Edit Form
+            Route::get('/{listing}/edit', 'edit');
 
-Route::get('/listings/manage', [ListingController::class, 'manage']);
+            // Update Listing
+            Route::put('/{listing}', 'update');
 
-// Store Listing Data
+            // Delete Listing
+            Route::delete('/{listing}', 'destroy');
+        });
 
-Route::post('/listings', [ListingController::class, 'store'])->middleware('auth');
+        // Single Listing
+        Route::get('/{listing}', 'show');
+    });
 
-// Show Edit Form
-
-Route::get('/listings/{listing}/edit', [ListingController::class, 'edit'])->middleware('auth');
-
-// Single Listing
-
-Route::get('/listings/{listing}', [ListingController::class, 'show']);
-
-// Update Listing
-
-Route::put('/listings/{listing}', [ListingController::class, 'update'])->middleware('auth');
-
-// Delete Listing
-
-Route::delete('/listings/{listing}', [ListingController::class, 'destroy'])->middleware('auth');
-
-
+    // All Listings
+    Route::get('/', 'index');
+});
 
 // Mark notification as read
 
@@ -71,34 +70,34 @@ Route::get('/markAsRead/{id}', function($id) {
     
     return redirect()->back();
 
-});
+})->middleware('auth');
 
 
 
 // Download CV
 
-Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download');
+Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download')->middleware('auth');;
 
 
 
 // Show applications of a User
 
-Route::get('/applications/show', [ApplicationController::class, 'show']);
+Route::get('/applications/show', [ApplicationController::class, 'show'])->middleware('auth');;
 
 
 // Store an Application
 
-Route::post('/applications/{listing}', [ApplicationController::class, 'store']);
+Route::post('/applications/{listing}', [ApplicationController::class, 'store'])->middleware('auth');;
 
 
 // Show Applications for a Listing
 
-Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage']);
+Route::get('/applications/{listing}/manage', [ApplicationController::class, 'manage'])->middleware('auth');;
 
 
 // Update Application Status
 
-Route::put('/applications/{listing}/{id}/{status}', [ApplicationController::class, 'update']);
+Route::put('/applications/{listing}/{id}/{status}', [ApplicationController::class, 'update'])->middleware('auth');;
 
 
 
