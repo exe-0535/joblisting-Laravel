@@ -45,25 +45,25 @@ Route::middleware(['auth'])->group(function() {
         Route::prefix('listings')->group(function() {
 
             // Show create form 
-            Route::get('/create', 'create');
+            Route::get('/create', 'create')->middleware(['role:employer']);
 
             // Manage Listings
-            Route::get('/manage', 'manage');
+            Route::get('/manage', 'manage')->middleware(['role:employer']);
 
             // Store Listing
-            Route::post('', 'store');
+            Route::post('', 'store')->middleware(['role:employer']);
 
             // Single Listing
             Route::get('/{listing}', 'show');
             
             // Show Edit Form
-            Route::get('/{listing}/edit', 'edit');
+            Route::get('/{listing}/edit', 'edit')->middleware(['role:employer']);
 
             // Update Listing
-            Route::put('/{listing}', 'update');
+            Route::put('/{listing}', 'update')->middleware(['role:employer']);
 
             // Delete Listing
-            Route::delete('/{listing}', 'destroy');
+            Route::delete('/{listing}', 'destroy')->middleware(['role:employer']);
         });
 
     });
@@ -78,22 +78,22 @@ Route::middleware(['auth'])->group(function() {
     });
 
     // Download CV
-    Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download');
+    Route::get('/download/{cv}', [CVDownloadController::class, 'download'])->name('download')->middleware(['role:employer']);
 
     // Applications group
     Route::controller(ApplicationController::class)->group(function() {
 
         // Show applications of a User
-        Route::get('/applications/show', 'show');
+        Route::get('/applications/show', 'show')->middleware(['role:seeker']);
 
         // Store an Application
-        Route::post('/applications/{listing}', 'store');
+        Route::post('/applications/{listing}', 'store')->middleware(['role:seeker']);
 
         // Show Applications for a Listing
-        Route::get('/applications/{listing}/manage', 'manage');
+        Route::get('/applications/{listing}/manage', 'manage')->middleware(['role:employer']);
 
         // Update Application Status
-        Route::put('/applications/{listing}/{id}/{status}', 'update');
+        Route::put('/applications/{listing}/{id}/{status}', 'update')->middleware(['role:employer']);
     });
 
     // Log User Out
