@@ -66,6 +66,11 @@ class ListingController extends Controller
     // Update listing
 
     public function update(StoreListingRequest $request, Listing $listing) {
+        $apiresponse = Http::get('https://nominatim.openstreetmap.org/search?q=' . $request->location . '&format=json&limit=1')->object();
+
+        if(count($apiresponse) < 1) {
+            return redirect()->back()->withErrors(['location' => 'Please enter a valid location'])->withInput();
+        }
 
         $this->authorize('update', $listing);
         $formFields = $request->validated();
