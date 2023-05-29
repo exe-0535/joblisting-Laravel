@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('tags');
             $table->string('company');
             $table->string('location');
-            $table->float('latitude');
-            $table->float('longitude');
+            $table->decimal('latitude', 18, 15);
+            $table->decimal('longitude', 18, 15);
             $table->string('email');
             $table->string('website');
             $table->longText('description');

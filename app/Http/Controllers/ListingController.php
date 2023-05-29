@@ -34,11 +34,12 @@ class ListingController extends Controller
 
     public function store(StoreListingRequest $request) {
 
-        // dd($request->location);
-        dd(Http::get('https://nominatim.openstreetmap.org/search?q=' . $request->location . '&format=json&limit=1')->object());
+        $apiresponse = Http::get('https://nominatim.openstreetmap.org/search?q=' . $request->location . '&format=json&limit=1')->object()[0];
         $formFields = $request->validated();
 
         $formFields['user_id'] = auth()->id();
+        $formFields['latitude'] = $apiresponse->lat;
+        $formFields['longitude'] = $apiresponse->lon;
 
         if($request->hasFile('logo')) {
 
