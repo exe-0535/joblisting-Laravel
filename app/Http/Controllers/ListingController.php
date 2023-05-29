@@ -74,6 +74,8 @@ class ListingController extends Controller
 
         $this->authorize('update', $listing);
         $formFields = $request->validated();
+        $formFields['latitude'] = $apiresponse[0]->lat;
+        $formFields['longitude'] = $apiresponse[0]->lon;
 
         if($request->hasFile('logo')) {
 
