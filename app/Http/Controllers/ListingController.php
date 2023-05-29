@@ -44,7 +44,7 @@ class ListingController extends Controller
             )";
 
             return view('listings.index', [
-                'listings' => Listing::selectRaw("*, $haversine AS distance")->latest()->having("distance", "<=", $range)->paginate(6)
+                'listings' => Listing::selectRaw("*, $haversine AS distance")->latest()->having("distance", "<=", $range)->filter(request(['tag', 'search']))->paginate(6)
             ]);
 
         }
