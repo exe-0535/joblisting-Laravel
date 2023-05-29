@@ -7,6 +7,7 @@ use App\Models\Listing;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Http;
 
 class ListingController extends Controller
 {
@@ -33,6 +34,8 @@ class ListingController extends Controller
 
     public function store(StoreListingRequest $request) {
 
+        // dd($request->location);
+        dd(Http::get('https://nominatim.openstreetmap.org/search?q=' . $request->location . '&format=json&limit=1')->object());
         $formFields = $request->validated();
 
         $formFields['user_id'] = auth()->id();
