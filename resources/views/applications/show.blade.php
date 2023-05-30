@@ -26,7 +26,7 @@
                                         {{$application->note}}
                                     </div>
                                     <div class="mb-5 break-words">
-                                        Status: <p class="font-bold">{{strtoupper($application->status)}}</p>
+                                        Status: <p class="font-bold @if($application->status == 'accepted') text-green-600 @endif @if($application->status == 'declined') text-red-600 @endif">{{strtoupper($application->status)}}</p>
                                     </div>
                                     
                                 </div>
