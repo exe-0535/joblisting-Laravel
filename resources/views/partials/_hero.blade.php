@@ -17,7 +17,7 @@
 
         @else
         <div>
-            <a href="/register/role" class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black">
+            <a href="/register/role" class="inline-block font-semibold border-2 border-white text-white py-2 px-4 uppercase mt-2 hover:text-black hover:border-black">
                 Start <span class="text-black">Now</span>
             </a>
         </div>

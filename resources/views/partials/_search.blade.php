@@ -1,5 +1,5 @@
 <form action="/">
-    <div class="relative border-2 border-gray-100 m-4 rounded-lg flex">
+    <div class="relative border-2 border-gray-100 m-4  flex">
         <div class="relative w-1/4 mr-4">
             <div class="absolute top-4 left-3">
                 <i
@@ -9,7 +9,7 @@
             <input
                 type="text"
                 name="location"
-                class="h-14 pl-10 w-full rounded-lg z-0 focus:shadow focus:outline-none"
+                class="h-14 pl-10 w-full  z-0 focus:shadow focus:outline-none text-ellipsis"
                 placeholder="Location, fe. Warsaw, Tokyo"
             />
             @error('location')
@@ -25,7 +25,7 @@
             <input
                 type="number"
                 name="range"
-                class="h-14 pl-10 w-full rounded-lg z-0 focus:shadow focus:outline-none"
+                class="h-14 pl-10 w-full  z-0 focus:shadow focus:outline-none text-ellipsis"
                 placeholder="Search scope in km (from 10 to 250)"
             />
             @error('range')
@@ -41,13 +41,13 @@
             <input
                 type="text"
                 name="search"
-                class="h-14 pl-10 w-full pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
-                placeholder="Search listings by keywords..."
+                class="h-14 pl-10 w-full pr-20  z-0 focus:shadow focus:outline-none text-ellipsis"
+                placeholder="Search listings by keywords"
             />
             <div class="absolute top-2 right-2">
                 <button
                     type="submit"
-                    class="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600"
+                    class="h-10 w-20 text-white  bg-red-500 hover:bg-red-600"
                 >
                     Search
                 </button>

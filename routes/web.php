@@ -36,6 +36,9 @@ Route::get('/', [ListingController::class, 'index']);
 // Show Login Form
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 
+// Single Listing
+Route::get('listings/{listing}', [ListingController::class, 'show']);
+
 // User authorization routes
 Route::middleware(['auth'])->group(function() {
 
@@ -52,9 +55,6 @@ Route::middleware(['auth'])->group(function() {
 
             // Store Listing
             Route::post('', 'store')->middleware(['role:employer']);
-
-            // Single Listing
-            Route::get('/{listing}', 'show');
             
             // Show Edit Form
             Route::get('/{listing}/edit', 'edit')->middleware(['role:employer']);
