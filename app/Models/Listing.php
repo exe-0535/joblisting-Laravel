@@ -45,4 +45,12 @@ class Listing extends Model
         return $this->hasMany(Application::class, 'listing_id');
 
     }
+
+    // Relationship To Tags
+
+    public function tags() {
+
+        return $this->belongsToMany(Tag::class);
+        
+    }
 }
