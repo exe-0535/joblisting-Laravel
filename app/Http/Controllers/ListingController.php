@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreListingRequest;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class ListingController extends Controller
 {
@@ -45,13 +46,13 @@ class ListingController extends Controller
             )";
 
             return view('listings.index', [
-                'listings' => Listing::selectRaw("*, $haversine AS distance")->latest()->having("distance", "<=", $range)->filter(request(['tag', 'search']))->paginate(6)
+                'listings' => Listing::selectRaw("*, $haversine AS distance")->latest()->having("distance", "<=", $range)->filter(request(['tags', 'search']))->paginate(6)
             ]);
 
         }
 
         return view('listings.index', [
-            'listings' => Listing::latest()->filter(request(['tag', 'search']))->paginate(6)
+            'listings' => Listing::latest()->filter(request(['tags', 'search']))->paginate(6)
         ]);
     }
 

@@ -66,7 +66,7 @@
                         @foreach($tags->where('type', '=', 'category') as $tag)
                             <li>
                                 <div class="flex items-center">
-                                    <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
+                                    <input id="checkbox-item-1" type="checkbox" name="tags[{{$tag->name}}]" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
                                     <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
                                 </div>
                             </li>
@@ -85,7 +85,7 @@
                         @foreach($tags->where('type', '=', 'experience') as $tag)
                             <li>
                                 <div class="flex items-center">
-                                    <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
+                                    <input id="checkbox-item-1" type="checkbox" name="tags[{{$tag->name}}]" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
                                     <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
                                 </div>
                             </li>
@@ -104,7 +104,7 @@
                         @foreach($tags->where('type', '=', 'technology') as $tag)
                             <li>
                                 <div class="flex items-center">
-                                    <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
+                                    <input id="checkbox-item-1" type="checkbox" name="tags[{{$tag->name}}]" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
                                     <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
                                 </div>
                             </li>
