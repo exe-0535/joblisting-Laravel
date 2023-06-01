@@ -119,6 +119,18 @@ class ListingController extends Controller
     // Update listing
 
     public function update(StoreListingRequest $request, Listing $listing) {
+
+        // Get all tags from the form
+        $listing->tags()->detach();
+        $tags = [];
+
+        foreach($request->tags as $tag) {
+            $keys = array_keys($tag);
+            foreach($keys as $key) {
+                array_push($tags, Tag::where('name', '=', $key)->first()->id);
+            }
+        }
+
         $apiresponse = Http::get('https://nominatim.openstreetmap.org/search?q=' . $request->location . '&format=json&limit=1')->object();
 
         if(count($apiresponse) < 1) {
@@ -127,6 +139,8 @@ class ListingController extends Controller
 
         $this->authorize('update', $listing);
         $formFields = $request->validated();
+        unset($formFields['tags']);
+
         $formFields['latitude'] = $apiresponse[0]->lat;
         $formFields['longitude'] = $apiresponse[0]->lon;
 
@@ -137,7 +151,7 @@ class ListingController extends Controller
         }
 
         $listing->update($formFields);
-        
+        $listing->tags()->attach($tags);
         
         return back()->with('message', 'Listing updated successfully!');
     }
