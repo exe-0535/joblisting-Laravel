@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
@@ -23,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::unguard();
         Schema::defaultStringLength(125);
+
+        View::composer('partials._search', function($view) {
+            $tags = Tag::all();
+            $view->with('tags', $tags);
+        });
     }
 }

@@ -61,30 +61,16 @@
                 <a id="dropdownCheckboxCategories" data-dropdown-toggle="dropdownCategories" class="text-gray-600 px-4 py-2.5 text-center inline-flex items-center" role="button">Categories<i class="fa-solid fa-chevron-down ml-3"></i></a>
 
                 <!-- Dropdown menu for categories -->
-                <div id="dropdownCategories" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500">
+                <div id="dropdownCategories" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500 max-h-40 overflow-y-scroll">
                     <ul class="p-3 space-y-3 text-sm " aria-labelledby="dropdownCheckboxCategories">
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Back-end</label>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Front-end</label>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Full-stack</label>
-                            </div>
-                        </li>
-
+                        @foreach($tags->where('type', '=', 'category') as $tag)
+                            <li>
+                                <div class="flex items-center">
+                                    <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
+                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -94,30 +80,16 @@
                 <a id="dropdownCheckboxExperience" data-dropdown-toggle="dropdownExperience" class="text-gray-600 px-4 py-2.5 text-center inline-flex items-center" role="button">Experience<i class="fa-solid fa-chevron-down ml-3"></i></a>
 
                 <!-- Dropdown menu for experience -->
-                <div id="dropdownExperience" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500">
+                <div id="dropdownExperience" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500 max-h-40 overflow-y-scroll">
                     <ul class="p-3 space-y-3 text-sm " aria-labelledby="dropdownCheckboxExperience">
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Junior</label>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Mid</label>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Senior</label>
-                            </div>
-                        </li>
-
+                        @foreach($tags->where('type', '=', 'experience') as $tag)
+                            <li>
+                                <div class="flex items-center">
+                                    <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
+                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -127,30 +99,16 @@
                 <a id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox" class="text-gray-600 px-4 py-2.5 text-center inline-flex items-center" role="button">Technologies<i class="fa-solid fa-chevron-down ml-3"></i></a>
 
                 <!-- Dropdown menu for technologies -->
-                <div id="dropdownDefaultCheckbox" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500">
+                <div id="dropdownDefaultCheckbox" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500 max-h-40 overflow-y-scroll">
                     <ul class="p-3 space-y-3 text-sm " aria-labelledby="dropdownCheckboxButton">
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">PHP</label>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">Vue</label>
-                            </div>
-                        </li>
-
-                        <li>
-                            <div class="flex items-center">
-                                <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
-                                <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">C++</label>
-                            </div>
-                        </li>
-
+                        @foreach($tags->where('type', '=', 'technology') as $tag)
+                            <li>
+                                <div class="flex items-center">
+                                    <input id="checkbox-item-1" type="checkbox" value="" class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0">
+                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
