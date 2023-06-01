@@ -18,7 +18,17 @@
                         <h3 class="text-2xl mb-2">{{$listing->title}}</h3>
                         <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
                         
-                        <x-listing-tags :tagsCsv="$listing->tags"/>
+                        <div>
+                            <ul class="flex">
+                                @foreach ($listing->tags as $tag)
+                                    <li class="flex items-center justify-center text-black border-2 border-solid border-black py-1 px-3 mr-2 text-xs">
+                                
+                                        {{$tag->name}}
+                                
+                                    </li>                 
+                                @endforeach
+                            </ul>
+                        </div>
 
                         <div class="text-lg my-4">
                             <i class="fa-solid fa-location-dot"></i> {{$listing->location}}

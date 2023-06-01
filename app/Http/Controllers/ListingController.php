@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreListingRequest;
+use App\Models\Tag;
 use App\Models\Listing;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StoreListingRequest;
 
 class ListingController extends Controller
 {
@@ -69,6 +70,19 @@ class ListingController extends Controller
     // Store Listing Data
 
     public function store(StoreListingRequest $request) {
+
+        // Get all tags from the form
+        $tags = [];
+
+        foreach($request->tags as $tag) {
+            $keys = array_keys($tag);
+            foreach($keys as $key) {
+                array_push($tags, Tag::where('name', '=', $key)->first()->id);
+            }
+        }
+
+        // dd($tags);
+
         $apiresponse = Http::get('https://nominatim.openstreetmap.org/search?q=' . $request->location . '&format=json&limit=1')->object();
 
         if(count($apiresponse) < 1) {
@@ -76,6 +90,7 @@ class ListingController extends Controller
         }
 
         $formFields = $request->validated();
+        unset($formFields['tags']);
 
         $formFields['user_id'] = auth()->id();
         $formFields['latitude'] = $apiresponse[0]->lat;
@@ -87,7 +102,8 @@ class ListingController extends Controller
 
         }
 
-        Listing::create($formFields);
+        $listing = Listing::create($formFields);
+        $listing->tags()->attach($tags);
         
         
         return redirect('/')->with('message', 'Listing created successfully!');

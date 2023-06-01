@@ -96,20 +96,79 @@
             @enderror
         </div>
 
+        <div class="flex w-full @if($errors->has('tags') || $errors->has('tags.technologies') || $errors->has('tags.experience') || $errors->has('tags.categories')) mb-0 @else mb-6 @endif">
+            <!-- Categories -->
+            <div class="relative w-1/3 mr-4 border border-gray-500 flex items-center justify-center">
+                <a id="dropdownCheckboxCategories" data-dropdown-toggle="dropdownCategories" class="text-gray-600 px-4 py-2.5 text-center inline-flex items-center" role="button">Categories<i class="fa-solid fa-chevron-down ml-3"></i></a>
+
+                <!-- Dropdown menu for categories -->
+                <div id="dropdownCategories" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500 max-h-40 overflow-y-scroll">
+                    <ul class="p-3 space-y-3 text-sm " aria-labelledby="dropdownCheckboxCategories">
+                        @foreach($tags->where('type', '=', 'category') as $tag)
+                            <li>
+                                <div class="flex items-center">
+                                    <input class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0" name="tags[categories][{{strtolower($tag->name)}}]" id="checkbox-item-1" type="checkbox" value={{old('tags[categories][' . strtolower($tag->name) . ']')}}>
+                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Experience -->
+            <div class="relative w-1/3 mr-4 border border-gray-500 flex items-center justify-center">
+                <a id="dropdownCheckboxExperience" data-dropdown-toggle="dropdownExperience" class="text-gray-600 px-4 py-2.5 text-center inline-flex items-center" role="button">Experience<i class="fa-solid fa-chevron-down ml-3"></i></a>
+
+                <!-- Dropdown menu for experience -->
+                <div id="dropdownExperience" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500 max-h-40 overflow-y-scroll">
+                    <ul class="p-3 space-y-3 text-sm " aria-labelledby="dropdownCheckboxExperience">
+                        @foreach($tags->where('type', '=', 'experience') as $tag)
+                            <li>
+                                <div class="flex items-center">
+                                    <input class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0" id="checkbox-item-1" name="tags[experience][{{strtolower($tag->name)}}]" type="checkbox" value={{old('tags[experience][' . strtolower($tag->name) . ']')}}>
+                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Technologies -->
+            <div class="relative w-1/3 border border-gray-500 flex items-center justify-center">
+                <a id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox" class="text-gray-600 px-4 py-2.5 text-center inline-flex items-center" role="button">Technologies<i class="fa-solid fa-chevron-down ml-3"></i></a>
+
+                <!-- Dropdown menu for technologies -->
+                <div id="dropdownDefaultCheckbox" class="z-10 hidden w-full bg-white divide-y divide-gray-100 border border-gray-500 max-h-40 overflow-y-scroll">
+                    <ul class="p-3 space-y-3 text-sm " aria-labelledby="dropdownCheckboxButton">
+                        @foreach($tags->where('type', '=', 'technology') as $tag)
+                            <li>
+                                <div class="flex items-center">
+                                    <input class="w-4 h-4 text-laravel border-gray-500 focus:ring-0 focus:ring-offset-0" id="checkbox-item-1" name="tags[technologies][{{strtolower($tag->name)}}]" type="checkbox" value={{old('tags[technologies][' . strtolower($tag->name) . ']')}}>
+                                    <label for="checkbox-item-1" class="ml-2 text-sm font-medium text-gray-600">{{$tag->name}}</label>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="mb-6">
-            <label for="tags" class="inline-block text-lg mb-2">
-                Tags (Comma Separated)
-            </label>
-            <input
-                type="text"
-                class="border border-gray-200 rounded p-2 w-full"
-                name="tags"
-                placeholder="Example: Laravel, Backend, Postgres, etc"
-                value="{{old('tags')}}"
-            />
             @error('tags')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                <p class="text-red-500 text-xs mt-1">You need to pick at least 1 tag in every category</p>
             @enderror
+            @if(!$errors->has('tags')) 
+            @error('tags.technologies')
+                <p class="text-red-500 text-xs mt-1">You need to include at least 1 technology</p>
+            @enderror
+            @error('tags.experience')
+                <p class="text-red-500 text-xs mt-1">You need to include at least 1 experience level</p>
+            @enderror
+            @error('tags.categories')
+                <p class="text-red-500 text-xs mt-1">You need to include at least 1 category</p>
+            @enderror
+            @endif
         </div>
 
         <div class="mb-6">
@@ -118,7 +177,7 @@
             </label>
             <input
                 type="file"
-                class="border border-gray-200 rounded p-2 w-full"
+                class="rounded p-2 w-full"
                 name="logo"
                 value="{{old('logo')}}"
             />

@@ -13,7 +13,7 @@ class Tag extends Model
 
     public function listings() {
 
-        return $this->belongsToMany(Listing::class);
+        return $this->belongsToMany(Listing::class, 'listings_tags');
 
     }
 }

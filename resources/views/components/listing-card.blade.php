@@ -13,7 +13,25 @@
             </h3>
             <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
             
-            <x-listing-tags :tagsCsv="$listing->tags"/>
+            <ul class="flex">
+                <?php
+                    $i = 0;
+                ?>
+                @foreach ($listing->tags as $tag)
+                    @if ($i == 3)
+                        @break
+                    @endif
+                <li class="flex items-center justify-center text-black border-2 border-solid border-black py-1 px-3 mr-2 text-xs">
+            
+                    {{$tag->name}}
+            
+                </li>
+                <?php
+                    $i++;
+                ?>
+            
+                @endforeach
+            </ul>
 
             <div class="text-lg mt-4">
                 <i class="fa-solid fa-location-dot"></i> {{$listing->location}}

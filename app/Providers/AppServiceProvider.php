@@ -30,5 +30,10 @@ class AppServiceProvider extends ServiceProvider
             $tags = Tag::all();
             $view->with('tags', $tags);
         });
+
+        View::composer('listings.create', function($view) {
+            $tags = Tag::all();
+            $view->with('tags', $tags);
+        });
     }
 }

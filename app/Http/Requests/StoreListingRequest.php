@@ -28,7 +28,10 @@ class StoreListingRequest extends FormRequest
             'location' => 'required',
             'website' => 'required',
             'email' => ['required', 'email'],
-            'tags' => 'required',
+            'tags' => 'required|array',
+            'tags.categories' => 'required',
+            'tags.experience' => 'required',
+            'tags.technologies' => 'required',
             'description' => 'required'
         ];
     }
